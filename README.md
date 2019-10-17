@@ -39,7 +39,7 @@ Things you may want to cover:
 
 |Column|Type|Options|
 |------|----|-------|
-|text|text|null: false|
+|text|text|
 |image|text|
 |user_id|integr|null: false, foreign_key: true|
 |group_id|integr|null: false, foreign_key: true|
@@ -51,7 +51,7 @@ Things you may want to cover:
 ## groupsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|group_name|stering|null: false, foreign_key: true|
+|name|stering|null: false, foreign_key: true|
 
 ### Association
 - has_many :groups_users

@@ -1,0 +1,43 @@
+.side-bar {
+  box-sizing: border-box;  //width,heightの合計値に線の寸法も含める
+  width: 300px;
+  color: white;
+  .header {
+    background-color: #2f3e51;
+    height: 100px;
+    line-height: 100px;  //行間
+    padding: 0 20px;
+  &__name {
+    font-size: 16px;
+    font-weight: bold;  //文字の太さ
+    display: inline-block;  //インラインブロック要素に変換する。横並びになる
+  }
+  &__lists {
+    display: inline-block;
+    float: right;
+    .list {
+      display: inline-block;
+    }
+    .icon {
+      color: white;
+      font-size: 16px;
+    }
+  }
+}
+  .groups{
+    background-color: #2f3e51;
+    height: calc(100vh - 100px); //トータルの高さから100pxを引く
+    padding: 0 20px;
+    .group{
+      box-sizing: border-box;
+      padding: 20px 0 40px;
+      &__name {
+        font-size: 15px;
+      }
+      &__message {
+        font-size: 11px;
+        margin-top: 5px;
+      }
+    }
+  }
+}

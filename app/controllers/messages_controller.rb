@@ -1,9 +1,11 @@
 class MessagesController < ApplicationController
   before_action :set_group
 
+  before_action :set_group
+
   def index
-    @message = Message.new
-    @messages = @group.messages.includes(:user)
+    @message  = Message.new
+    @messages = @group.messages.includes(:user).order('id DESC')
   end
 
   def create
@@ -15,15 +17,17 @@ class MessagesController < ApplicationController
       flash.now[:alert] = 'メッセージを入力してください。'
       render :index
     end
+
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
+    params.require(:message).permit(:image, :content).merge(user_id: current_user.id)
   end
 
   def set_group
     @group = Group.find(params[:group_id])
   end
+
 end

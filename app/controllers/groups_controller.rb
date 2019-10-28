@@ -24,7 +24,7 @@ class GroupsController < ApplicationController
 
   def updata
     if @group.update(group_params)
-      edirect_to group_messages_path(@group), notice: '編集できました'#saveに成功したら表示される
+      redirect_to group_messages_path(@group), notice: '編集できました'#saveに成功したら表示される
     else
       render :edit
     end

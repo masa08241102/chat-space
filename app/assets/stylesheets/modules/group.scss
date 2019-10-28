@@ -93,10 +93,17 @@ li {
   &__name {
     float: left;
   }
+  &__button{
+    float: right;
+    display: inline-block;
+    cursor: pointer;
+    color: #f05050;
+  }
   &__btn {
     float: right;
     display: inline-block;
     cursor: pointer;
+    color: #38aef0;
     &--add {
       color: #38aef0;
     }

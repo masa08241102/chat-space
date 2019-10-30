@@ -67,5 +67,4 @@ $(function(){
     });
   };
   setInterval(reloadMessages, 6000);
-  // console.log(reloadMessages);
 });

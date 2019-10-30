@@ -1,7 +1,7 @@
 $(function(){ 
   function buildHTML(message){//create.json.jbuilderから
     
-    var image = message.image.url ? `<img class="lower-message__image" src=${message.image} >`: ""; //三項演算子を使ってmessage.imageにtrueならHTML要素、faiseなら空の値を代入。
+    var image = message.image.url ? `<img class="lower-message__image" src=${message.image.url} >`: ""; //三項演算子を使ってmessage.imageにtrueならHTML要素、faiseなら空の値を代入。
 
     var html =
     `<div class="message" data-message-id=${message.id}>
@@ -65,5 +65,5 @@ $(function(){
       alert("自動更新に失敗しました");
     });
   };
-  setInterval(reloadMessages, 6000);
+  setInterval(reloadMessages, 600);
 });

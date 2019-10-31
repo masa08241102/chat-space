@@ -17,7 +17,7 @@ set :rbenv_type, :user
 set :rbenv_ruby, '2.5.1'
 
 set :ssh_options, auth_methods: ['publickey'],
-                  keys: ['/var/www/chat-space/.ssh/key_pem.pem']
+                  keys: ['~/.ssh/chatspace.pem']
 
 set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
 # You can configure the Airbrussh format using :format_options.

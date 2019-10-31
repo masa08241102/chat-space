@@ -61,9 +61,9 @@ $(function(){
         $('.messages').append(insertHTML)
       })
     })
-    .fail(function(){
-      alert("自動更新に失敗しました");
-    });
+    // .fail(function(){
+    //   alert("自動更新に失敗しました");
+    // });
   };
-  setInterval(reloadMessages, 5000);
+  // setInterval(reloadMessages, 50000);
 });

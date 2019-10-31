@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.2"
+lock "3.11.2"
 
 set :application, "chat-space"
 set :repo_url,  'git@github.com:masa08241102/chat-space.git'
@@ -13,7 +13,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 set :rbenv_type, :user
-
 set :rbenv_ruby, '2.5.1'
 
 set :ssh_options, auth_methods: ['publickey'],

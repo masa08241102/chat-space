@@ -34,11 +34,12 @@ $(function(){
     processData: false,
     contentType: false
   })
+
   .done(function(data){
     var html = buildHTML(data);
     $('.messages').append(html);
     $('.new_message')[0].reset();//設定した初期値になる
-    $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight});
+    $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');//最新のメッセージが一番下に表示されようにスクロールする。
   })
     .fail(function(){
       alert('error');
@@ -46,24 +47,28 @@ $(function(){
     return false;
   });
 
-  var reloadMessages = function(){//自動更新
-    last_message_id = $('.message').last().data("message-id");
-    $.ajax({
-      url: "api/messages",
-      type: 'get',
-      dataType: 'json',
-      data: {id: last_message_id}//index.json
-    })
-    .done(function(messages) {
-      var insertHTML = '';
-      messages.forEach(function(message){
-        insertHTML = buildHTML(message);
-        $('.messages').append(insertHTML)
+  var reloadMessages = function () {
+    if (window.location.href.match(/\/groups\/\d+\/messages/)){
+      last_message_id = $('.message').last().data("message-id"); 
+      // var group_id = $(".group").data("group-id");
+
+      $.ajax({ //ajax通信
+        url: "api/messages", //サーバを指定。api/message_controllerに処理を飛ばす
+        type: 'get', 
+        dataType: 'json', 
+        data: {id: last_message_id} 
       })
-    })
-    .fail(function(){
-      alert("自動更新に失敗しました");
-    });
+      .done(function (messages) { 
+        var insertHTML = '';
+        messages.forEach(function (message) {
+          insertHTML = buildHTML(message);
+          $('.messages').append(insertHTML);
+        })
+      })
+      .fail(function () {
+        alert('自動更新に失敗しました');//ダメだったらアラートを出す
+      });
+    }
   };
-  setInterval(reloadMessages, 50000);
+  setInterval(reloadMessages, 500);//5000ミリ秒ごとにreloadMessagesという関数を実行し自動更新を行う。
 });

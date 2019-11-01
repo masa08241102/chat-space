@@ -1,9 +1,9 @@
 $(function(){ 
   function buildHTML(message){//create.json.jbuilderから
-    
+
     var image = message.image.url ? `<img class="lower-message__image" src=${message.image.url} >`: ""; //三項演算子を使ってmessage.imageにtrueならHTML要素、faiseなら空の値を代入。
 
-    var html =
+    var html =//メッセージの投稿内容
     `<div class="message" data-message-id=${message.id}>
         <div class="upper-message">
           <div class="upper-message__user-name">
@@ -22,10 +22,10 @@ $(function(){
       </div>`
     return html;
   }
-  $('.new_message').on('submit', function(e){//新規メッセージ
-    e.preventDefault();
-    var formData = new FormData(this);
-    var url = $(this).attr('action')
+  $('.new_message').on('submit', function(e){//新規メッセージを入力し、sendボタンを押したらイベント発火
+    e.preventDefault();//初期イベントの解除。ボタンを入力して情報をcontrollreに行くのを防ぐ
+    var formData = new FormData(this);//イベントが発火した要素の値を取得
+    var url = $(this).attr('action')//イベントが発火したaction=urlを取得
   $.ajax({//create.json.jbuilderへ
     url: url,
     type: "POST",
@@ -35,22 +35,21 @@ $(function(){
     contentType: false
   })
 
-  .done(function(data){
-    var html = buildHTML(data);
-    $('.messages').append(html);
-    $('.new_message')[0].reset();//設定した初期値になる
+  .done(function(data){//controllerのcreateからjsonデータタイプで返ってくる。jbuilderの内容が、dataに格納されている
+    var html = buildHTML(data);//ハッシュで格納されたデータを上記のhtmlに格納する。
+    $('.messages').append(html);//dataの入ったhtmlをmessageに挿入する
+    $('.new_message')[0].reset();//メッセージ欄は情報が残らないように初期化する
     $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');//最新のメッセージが一番下に表示されようにスクロールする。
   })
-    .fail(function(){
+    .fail(function(){//新規投稿に失敗したらアラートが出現する
       alert('error');
     });
-    return false;
+    return false;//毎回データがreturnしないようにする
   });
 
   var reloadMessages = function () {
-    if (window.location.href.match(/\/groups\/\d+\/messages/)){
-      last_message_id = $('.message').last().data("message-id"); 
-      // var group_id = $(".group").data("group-id");
+    if (window.location.href.match(/\/groups\/\d+\/messages/)){//他のページで自動更新されないようにする
+      last_message_id = $('.message').last().data("message-id");//最後のメッセージを拾ってきて、最後のページのみ更新する
 
       $.ajax({ //ajax通信
         url: "api/messages", //サーバを指定。api/message_controllerに処理を飛ばす
@@ -58,8 +57,8 @@ $(function(){
         dataType: 'json', 
         data: {id: last_message_id} 
       })
-      .done(function (messages) { 
-        var insertHTML = '';
+      .done(function (messages) { //index.jsonから
+        var insertHTML = '';//からのhtmlを用意する
         messages.forEach(function (message) {
           insertHTML = buildHTML(message);
           $('.messages').append(insertHTML);
@@ -70,5 +69,5 @@ $(function(){
       });
     }
   };
-  setInterval(reloadMessages, 5000);//5000ミリ秒ごとにreloadMessagesという関数を実行し自動更新を行う。
+  setInterval(reloadMessages, 500);//5000ミリ秒ごとにreloadMessagesという関数を実行し自動更新を行う。
 });

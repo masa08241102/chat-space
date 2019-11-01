@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
 
-  before_action :set_group, only: [:edit, :updata]
+  before_action :set_group, only: [:edit, :update]
 
   def index
   end
@@ -22,7 +22,7 @@ class GroupsController < ApplicationController
   def edit
   end
 
-  def updata
+  def update
     if @group.update(group_params)
       redirect_to group_messages_path(@group), notice: '編集できました'#saveに成功したら表示される
     else

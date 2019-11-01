@@ -286,7 +286,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   capistrano3-unicorn
-  carrierwave
+  carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
   devise
   factory_bot_rails
